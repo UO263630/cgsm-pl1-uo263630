@@ -38,17 +38,12 @@ if ( WEBGL.isWebGLAvailable() ) {
     const geometry4 = new THREE.BufferGeometry();
 
     const vertices = new Float32Array( [
-        // Internal vertices
-        -0.0, 0.0,  0,
-        3.0, 3.0,  0,
-        6.0, -6.0,  0,
-        -9.0,  -9.0,  0,
-        
-        // External vertices
-        -9.0,  9.0,  0,
-        9.0,  9.0,  0,
-        9.0, -9.0,  0,
-       -9.0, -9.0,  0
+        20.0, -20.0,  20.0,
+        20.0,  20.0,  20.0,
+
+        0.0,  32.0,  32.0, 
+        -20.0,  20.0,  20.0, 
+        -20.0, -20.0,  20.0 
     ] );
     
     // Faces (indices of vertices)
@@ -70,7 +65,7 @@ if ( WEBGL.isWebGLAvailable() ) {
 
     const material4 = new THREE.MeshBasicMaterial( );
     const box4 = new THREE.Mesh( geometry4, material4 );
-    box4.position.y=80
+    box4.position.y=65
 
     const light = new THREE.DirectionalLight( 0xffffff, 0.5  ); // soft white light
     const light2 = new THREE.PointLight( 0xff0000, 1, 100 );

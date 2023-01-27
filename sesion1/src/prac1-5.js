@@ -15,18 +15,14 @@ if ( WEBGL.isWebGLAvailable() ) {
     const geometry = new THREE.BufferGeometry();
 
     const vertices = new Float32Array( [
-        // Internal vertices
-        -0.0, 0.0,  0,
-        18.0, 18.0,  0,
-        18.0, -18.0,  0,
-        -10.0, -10.0,  0,
-        
 
-        // External vertices
-        -20.0, 20.0,  0,
-        20.0,  20.0,  0,
-        20.0, -20.0,  0,
-       -20.0, -20.0,  0
+        20.0, -20.0,  20.0,
+        20.0,  20.0,  20.0,
+
+        0.0,  32.0,  32.0, 
+        -20.0,  20.0,  20.0, 
+        -20.0, -20.0,  20.0 
+
     ] );
     
     // Faces (indices of vertices)

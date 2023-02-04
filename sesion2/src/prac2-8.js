@@ -14,51 +14,87 @@ if ( WEBGL.isWebGLAvailable() ) {
     const camera = new THREE.PerspectiveCamera ( 45, window.innerWidth / window.innerHeight, 1, 4000 );
     camera.position.set( 0, 0, 300 );
 
-    const geometry = new THREE.SphereGeometry( 50,50,50 );
+    const geometry = new THREE.SphereGeometry( 25,25,25);
     const mapUrl = "../textures/tierra.png";   // The file used as texture
     const textureLoader = new THREE.TextureLoader( );  // The object used to load textures
     const map = textureLoader.load( mapUrl );
     const material = new THREE.MeshPhongMaterial( { map: map } );
     const tierra = new THREE.Mesh( geometry, material );
 
-    //const light = new THREE.PointLight( 0xffffff, 10, 100 );
-    const light = new THREE.AmbientLight( 0x404040,5 );
-    //light.position.set( 50,0,50 );
+    const light = new THREE.PointLight( 0xffffff, 5, 500 );
+    light.position.set( 50,0,100 );
 
-    const geometry2 = new THREE.SphereGeometry( 51, 51, 51 );
+    const geometry2 = new THREE.SphereGeometry( 26,26,26);
     const mapUrl2 = "../textures/atmosfera.png";   // The file used as texture
     const textureLoader2 = new THREE.TextureLoader( );  // The object used to load textures
     const atmosphereMap = textureLoader2.load( mapUrl2 );
-    const atmosphereMaterial = new THREE.MeshLambertMaterial( { color: 0xFFFFFF, map: atmosphereMap, transparent: true } );
+    var atmosphereMaterial = new THREE.MeshLambertMaterial( { color: 0xFFFFFF, map: atmosphereMap, transparent: true } );
     const atmos = new THREE.Mesh( geometry2, atmosphereMaterial );
+
 
     tierra.rotation.set( 0, 0, 0.36 );
     atmos.rotation.set( 0, 0, 0.36 );
 
-    const lunageometry = new THREE.SphereGeometry( 50,50,50 );
+
+    const solgeometry = new THREE.SphereGeometry( 50,50,50);
+    const NOISEMAP = '../textures/cloud.png';
+    const SUNMAP = '../textures/lavatile.png';
+    const soltextureLoader = new THREE.TextureLoader( );
+    const uniforms = {
+        "fogDensity": { value: 0 },
+        "fogColor": { value: new THREE.Vector3( 0, 0, 0 ) },
+        "time": { value: 1.0 },
+        "uvScale": { value: new THREE.Vector2( 3.0, 1.0 ) },
+        "texture1": { value: soltextureLoader.load( NOISEMAP ) },
+        "texture2": { value: soltextureLoader.load( SUNMAP ) }
+    };
+    
+    uniforms[ "texture1" ].value.wrapS = uniforms[ "texture1" ].value.wrapT = THREE.RepeatWrapping;
+    uniforms[ "texture2" ].value.wrapS = uniforms[ "texture2" ].value.wrapT = THREE.RepeatWrapping;
+    
+
+    const vertexShader = require( '../shaders/vertex.glsl' );
+    const fragmentShader = require( '../shaders/fragment.glsl' );
+    
+    const solmaterial = new THREE.ShaderMaterial( {
+        uniforms,
+        vertexShader,
+        fragmentShader
+    } );
+
+
+    const sol = new THREE.Mesh( solgeometry, solmaterial );
+    sol.position.set(300,50,-2000)
+
+    const lunageometry = new THREE.SphereGeometry( 10,10,10 );
     const lunamapUrl = "../textures/luna.gif";   // The file used as texture
     const lunatextureLoader = new THREE.TextureLoader( );  // The object used to load textures
     const lunaMap = lunatextureLoader.load( lunamapUrl, ( loaded ) => { renderer.render( scene, camera ); } );
     const lunamaterial = new THREE.MeshLambertMaterial( { map: lunaMap, color: 0x888888 } );
     const luna = new THREE.Mesh( lunageometry, lunamaterial );
 
+
     //... TODO: create the Moon and compute the distance to the Earth
 
     // Move the Moon away from the coordinate origin (the Earth)
     // NOT TO SCALE. Real value: Math.sqrt( distance * distance / 2 )
-    //luna.position.set( Math.sqrt( distance / 2 ), 0, -Math.sqrt( distance / 2 ) );
-    luna.position.set(50,50,50)
+    const distance =20000
+    luna.position.set( Math.sqrt( distance / 2 ), 0, -Math.sqrt( distance / 2 ) );
+
     // Rotate the Moon to face visible side to the Earth (tidal locking)
     luna.rotation.y = Math.PI;
 
     // Moon should rotate around the Earth: an Object3D is needed
-    //const moonGroup = new Object3D( );
-    //moonGroup.add( luna );
+    const moonGroup = new THREE.Object3D();
+
+    moonGroup.add( luna );
 
     // The Moon orbit is a bit tilted
-    //moonGroup.rotation.x = 0.089;
+    moonGroup.rotation.x = 0.089;
 
-    scene.add( tierra , light, atmos, luna);
+ 
+
+    scene.add( tierra , light, atmos, luna, sol);
     
     
 
@@ -69,24 +105,35 @@ if ( WEBGL.isWebGLAvailable() ) {
         ( loaded ) => { renderer.render( scene, camera ); }
     }, false );
 
-    animate
+    
+
+    const clock = new THREE.Clock( );
+
+    function animate( ) {
+
+        const delta = clock.getDelta( ); // Elapsed time in seconds
+
+        // UPDATE THE SCENE ACCORDING TO THE ELAPSED TIME
+        const rotation = ( delta * Math.PI * 2 ) / 24;
+        
+        tierra.rotation.y += rotation;
+        atmos.rotation.y += rotation * 0.95;
+        luna.rotation.x += rotation*0.089;
+        uniforms[ "time" ].value += 0.2 * delta;
+
+        tierra.add(moonGroup)
+        moonGroup.add(luna)
+
+       
+
+        // Render the scene
+        renderer.render( scene, camera );
+
+        // Request the browser to execute the animation-rendering loop
+        requestAnimationFrame( animate );
+    };
+    
+    animate();
 }
 
-const clock = new THREE.Clock( );
-
-function animate( ) {
-
-    const delta = clock.getDelta( ); // Elapsed time in seconds
-
-    // UPDATE THE SCENE ACCORDING TO THE ELAPSED TIME
-    const rotation = ( delta * Math.PI * 2 ) / 24;
-    tierra.rotation.y += rotation;
-    atmos.rotation.y += rotation * 0.95;
-
-    // Render the scene
-    renderer.render( scene, camera );
-
-    // Request the browser to execute the animation-rendering loop
-    requestAnimationFrame( animate );
-};
 

@@ -19,10 +19,10 @@ if ( WEBGL.isWebGLAvailable() ) {
     const material = new THREE.MeshPhongMaterial( { map: map } );
     const tierra = new THREE.Mesh( geometry, material );
 
-    const light = new THREE.PointLight( 0xffffff, 10, 100 );
-    light.position.set( 50,0,50 );
+    const light = new THREE.PointLight( 0xffffff, 5, 500 );
+    light.position.set( 50,0,100 );
 
-    const geometry2 = new THREE.SphereGeometry( 50, 50, 50 );
+    const geometry2 = new THREE.SphereGeometry( 51, 51, 51 );
     const mapUrl2 = "../textures/atmosfera.png";   // The file used as texture
     const textureLoader2 = new THREE.TextureLoader( );  // The object used to load textures
     const atmosphereMap = textureLoader2.load( mapUrl2 );
@@ -34,16 +34,11 @@ if ( WEBGL.isWebGLAvailable() ) {
     tierra.rotation.set( Math.PI / 5, Math.PI / 5, 0 );
 
     scene.add( tierra , light, atmos);
-    ( loaded ) => { renderer.render( scene, camera ); }
 
     window.addEventListener( 'resize', ( ) => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix( );
         renderer.setSize( window.innerWidth, window.innerHeight );
-        renderer.render( scene, camera );
+        ( loaded ) => { renderer.render( scene, camera ); }
     }, false );
-}
-
-else{
-    
 }

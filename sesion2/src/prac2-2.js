@@ -19,22 +19,17 @@ if ( WEBGL.isWebGLAvailable() ) {
     const material = new THREE.MeshPhongMaterial( { map: map } );
     const box = new THREE.Mesh( geometry, material );
 
-    const light = new THREE.PointLight( 0xffffff, 10, 100 );
-    light.position.set( 50,0,50 );
+    const light = new THREE.PointLight( 0xffffff, 10, 500 );
+    light.position.set( 50,0,100);
 
     box.rotation.set( Math.PI / 5, Math.PI / 5, 0 );
 
     scene.add( box , light);
-    ( loaded ) => { renderer.render( scene, camera ); }
 
     window.addEventListener( 'resize', ( ) => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix( );
         renderer.setSize( window.innerWidth, window.innerHeight );
-        renderer.render( scene, camera );
+        ( loaded ) => { renderer.render( scene, camera ); }
     }, false );
-}
-
-else{
-    
 }

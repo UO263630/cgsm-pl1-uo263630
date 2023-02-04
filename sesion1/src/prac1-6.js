@@ -68,7 +68,7 @@ if ( WEBGL.isWebGLAvailable() ) {
     box4.position.y=65
 
     const light = new THREE.DirectionalLight( 0xffffff, 0.5  ); // soft white light
-    const light2 = new THREE.PointLight( 0xff0000, 1, 100 );
+    const light2 = new THREE.PointLight( 0xFFFFFF, 1, 100 );
     const light3 = new THREE.AmbientLight( 0x404040 );
     light2.position.set( 50, 50, 50 );
   

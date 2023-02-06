@@ -15,7 +15,7 @@ if ( WEBGL.isWebGLAvailable() ) {
     const geometry = new THREE.SphereGeometry( 25,25,25 );
     const mapUrl = "../textures/tierra.png";   // The file used as texture
     const textureLoader = new THREE.TextureLoader( );  // The object used to load textures
-    const map = textureLoader.load( mapUrl );
+    const map = textureLoader.load( mapUrl, ( loaded ) => { renderer.render( scene, camera ); }  );
     const material = new THREE.MeshPhongMaterial( { map: map } );
     const tierra = new THREE.Mesh( geometry, material );
 
@@ -25,7 +25,7 @@ if ( WEBGL.isWebGLAvailable() ) {
     const geometry2 = new THREE.SphereGeometry( 26,26,26 );
     const mapUrl2 = "../textures/atmosfera.png";   // The file used as texture
     const textureLoader2 = new THREE.TextureLoader( );  // The object used to load textures
-    const atmosphereMap = textureLoader2.load( mapUrl2 );
+    const atmosphereMap = textureLoader2.load( mapUrl2 , ( loaded ) => { renderer.render( scene, camera ); } );
     const atmosphereMaterial = new THREE.MeshLambertMaterial( { color: 0xFFFFFF, map: atmosphereMap, transparent: true } );
     const atmos = new THREE.Mesh( geometry2, atmosphereMaterial );
 
@@ -37,12 +37,13 @@ if ( WEBGL.isWebGLAvailable() ) {
 
 
     scene.add( tierra , light, atmos);
+    ( loaded ) => { renderer.render( scene, camera ); }
 
     window.addEventListener( 'resize', ( ) => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix( );
         renderer.setSize( window.innerWidth, window.innerHeight );
-        ( loaded ) => { renderer.render( scene, camera ); }
+        renderer.render( scene, camera ); 
     }, false );
 }
 

@@ -1,24 +1,10 @@
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
 module.exports = {
     mode: "production",
     entry: {
+        "prac3-1": "./src/prac3-1.js",
+        "prac3-2": "./src/prac3-2.js",
+        "prac3-3": "./src/prac3-3.js",
+        "prac3-4": "./src/prac3-4.js"
     },
     //devtool: 'inline-source-map',
     devServer: {
@@ -30,6 +16,7 @@ module.exports = {
         }
     },
     performance: {
+        hints: false,
         maxAssetSize: 1000000,
         maxEntrypointSize: 1000000
     }

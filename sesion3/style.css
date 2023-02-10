@@ -15,8 +15,6 @@ canvas {
     height: 100%;
 }
 
-
-
 #overlay {
 	position: absolute;
 	z-index: 2;

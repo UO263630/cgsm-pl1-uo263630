@@ -7,16 +7,18 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <!-- Content of the page -->
-    <script type="module" defer src="dist/prac3-2.js"></script>
+    <!-- Content of the page-->
     <div id="overlay">
         <div>
             <button id="startButton">Click to Play</button>
             <p>Video playback with audio requires user interaction.</p>
         </div>
     </div>
-    <video id="video" class="videot">
+    <video id="video"  style="display:none"  class="videot">
         <source src="../videos/sintel_trailer-480p.mp4">
     </video>
+    
+    <script type="module" defer src="dist/prac3-2.js"></script>
+
 </body>
 </html>

@@ -13,6 +13,9 @@ if ( WEBGL.isWebGLAvailable() ) {
 
     const camera = new THREE.PerspectiveCamera ( 45, window.innerWidth / window.innerHeight, 1, 4000 );
     camera.position.set( 0, 20, 400 );
+    const listener = new THREE.AudioListener();
+    camera.add( listener );
+
 
 
    
@@ -38,6 +41,17 @@ if ( WEBGL.isWebGLAvailable() ) {
         regularFaceMaterial,
         regularFaceMaterial
     ];
+
+    const audioLoader = new THREE.AudioLoader();
+    const sound = new THREE.PositionalAudio( listener );
+    audioLoader.load( "../sounds/audio1.ogg", ( buffer ) => {
+        sound.setBuffer( buffer );
+        sound.setRefDistance( 20 );
+        sound.setLoop( true );
+        sound.setRolloffFactor( 1 );
+        sound.play(); // Modern browsers do not allow sound to start without user interaction
+    });
+
     
     materials.bumpScale =4;
     const box = new THREE.Mesh( geometry, materials );
@@ -63,14 +77,26 @@ if ( WEBGL.isWebGLAvailable() ) {
         map: textureLoader2.load( "../textures/brick.jpg" , ( loaded ) => { renderer.render( scene, camera ); })
     } );// Material for the rest of the faces
 
-        const materials2 = [
-            regularFaceMaterial2,
-            specialFaceMaterial2,
-            regularFaceMaterial2,
-            regularFaceMaterial2,
-            regularFaceMaterial2,
-            regularFaceMaterial2
-        ];
+    const materials2 = [
+        regularFaceMaterial2,
+        specialFaceMaterial2,
+        regularFaceMaterial2,
+        regularFaceMaterial2,
+        regularFaceMaterial2,
+        regularFaceMaterial2
+    ];
+
+    const audioLoader2 = new THREE.AudioLoader();
+    const sound2 = new THREE.PositionalAudio( listener );
+    audioLoader2.load( "../sounds/audio2.ogg", ( buffer ) => {
+        sound2.setBuffer( buffer );
+        sound2.setRefDistance( 20 );
+        sound2.setLoop( true );
+        sound2.setRolloffFactor( 1 );
+        sound2.play(); // Modern browsers do not allow sound to start without user interaction
+    });
+
+
     const box2 = new THREE.Mesh( geometry2, materials2 );
     
     box2.position.set(200,25,-100);
@@ -93,7 +119,8 @@ if ( WEBGL.isWebGLAvailable() ) {
 
 
     scene.add( box , light2, box2 ,helper, light3, hemiLight, controls);
-
+    box.add(sound);
+    box2.add(sound2)
     
     renderer.render( scene, camera);
 

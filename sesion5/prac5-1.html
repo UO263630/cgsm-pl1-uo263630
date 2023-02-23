@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic template for the CGSM labs PRAC5-1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <!-- Content of the page-->
+    <div id="overlay">
+        <div>
+            <button id="startButton">Click to Play</button>
+            <p>Video playback with audio requires user interaction.</p>
+        </div>
+    </div>
+    <video id="player" class="videot">
+      <!-- <source src="../video/counter_video_180.mp4"> --->
+    </video>
+    
+    <script type="module" defer src="dist/prac5-1.js"></script>
+    <script type="module" defer src="dash.all.min.js"></script>
+
+</body>
+</html>

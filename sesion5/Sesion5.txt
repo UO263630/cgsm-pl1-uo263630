@@ -1,0 +1,12 @@
+Manifiesto 1
+-1 identificada con id 2_1
+-4 identificadas con id 1_1, 1_2, 1_3, 1_4
+-4 resoluciones
+
+Manifiesto 2
+-1 identificada con id 4
+-3 identificadas con id 1, 2, 3
+-3 resoluciones
+
+
+

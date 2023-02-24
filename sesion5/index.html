@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Informe de prácticas de CGSM (2022-2023)</title>
+        <link rel="stylesheet" type="text/css" href="report.css">
+    </head>
+    <body>
+        <!-- Información general -->
+        <div id="head">
+            <table id="general">
+                <tr>
+                    <th class="header">Nombre:</th>
+                    <td>Daniel Mariño García</td>                     
+                </tr>
+                <tr>
+                    <th>Práctica:</th>
+                    <td>5</td> 
+                </tr>
+            </table>
+        </div>
+        <div id="content">
+            <h1>Memoria</h1>
+            <h2>Descripción de la práctica</h2>
+                <p>Esta practica consiste en entender el concepto de MPEG-DASH trabajando con flujos distribuidos utilizando
+                    esta tecnologia. Inicialmente, se han analizado dos manifiestos indicando las codificaciones de audio y video
+                    y sus resoluciones siendo las siguientes:<br>
+                    Manifiesto 1<br>
+                    -Hay una sola representada con el id 2_1 <br>
+                    -De video hay 4 identificadas con los id 1_1, 1_2, 1_3, 1_4<br>
+                    -Resoluciones de video:<br>
+                    854x480 (maxHeight=480, maxWidth=854 en el Adaptation Set de video)<br>
+                    640x360 (calculado como la mitad de la resolución 1280x720)<br>
+                    426x240 (calculado como la mitad de la resolución 852x480)<br>
+                    256x144 (calculado como la mitad de la resolución 512x288)<br>
+
+                    Manifiesto 2<br>
+                    -Hay una sola representación de audio con el id 4<br>
+                    -De video hay 4 identificadas con los id 1, 2, 3<br>
+                    -Resoluciones de video:<br>
+                    512x288 con un ancho de banda de 1197707 bits/s<br>
+                    768x432 con un ancho de banda de 1974495 bits/s<br>
+                    1280x720 con un ancho de banda de 4102610 bits/s<br>
+                    
+                    Tras esto utilizando una maquina virtual se han generado diferentes mpd separando en algunos casos el audio y video.
+                    Estos archivos son usados en los dos ejerecicios posteriores.
+
+                </p>
+            <h2>Ejercicio 1</h2>
+                <p> Esta escena consiste en añadir un video a una web indicando mediante un manifiesto
+                </p>
+                <iframe src="http://localhost:8080/prac5-1.html">
+                    Escena 1          
+                </iframe>
+            <h2>Ejercicio 2</h2>
+                <p> Esta escena consiste en añadir al ejercicio 2 de la practica 3 un video servideo con MPEG-DASH</p>
+                <iframe src="http://localhost:8080/prac5-2.html">
+                    Escena 2
+                </iframe>
+            <h2>Dificultades encontradas</h2>
+                <p>Las dificultades encontradas durante esta práctica ahn sido principalmente a la hora de entender el fucnionamiento 
+                    de los dash y como incrustarlos en repodusctores</p> 
+        </div>
+    </body>
+</html>

@@ -38,7 +38,7 @@ if ( WEBGL.isWebGLAvailable() ) {
         
         const wall = new THREE.Mesh( new THREE.PlaneGeometry( image.width, image.height, 4, 4 ), material );
 
-        const url = "http://localhost:60080/counter.mpd";
+        const url = "http://localhost:60080/video1/counter.mpd";
         const player = dashjs.MediaPlayer().create();
         player.initialize(document.querySelector("#player"), url, true);
 

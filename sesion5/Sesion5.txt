@@ -1,12 +1,19 @@
 Manifiesto 1
--1 identificada con id 2_1
--4 identificadas con id 1_1, 1_2, 1_3, 1_4
--4 resoluciones
+-Hay una sola representada con el id 2_1 
+-De video hay 4 identificadas con los id 1_1, 1_2, 1_3, 1_4
+-Resoluciones de video:
+854x480 (maxHeight=480, maxWidth=854 en el Adaptation Set de video)
+640x360 (calculado como la mitad de la resolución 1280x720)
+426x240 (calculado como la mitad de la resolución 852x480)
+256x144 (calculado como la mitad de la resolución 512x288)
+
+
 
 Manifiesto 2
--1 identificada con id 4
--3 identificadas con id 1, 2, 3
--3 resoluciones
-
-
+-Hay una sola representación de audio con el id 4ç
+-De video hay 4 identificadas con los id 1, 2, 3
+-Resoluciones de video:
+512x288 con un ancho de banda de 1197707 bits/s
+768x432 con un ancho de banda de 1974495 bits/s
+1280x720 con un ancho de banda de 4102610 bits/s
 

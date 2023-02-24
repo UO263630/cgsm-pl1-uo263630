@@ -23,8 +23,8 @@ if ( WEBGL.isWebGLAvailable() ) {
 
         const video = document.getElementById('player');
         const image = document.createElement( 'canvas' );
-        image.width = 480;  // Video width
-        image.height = 204; // Video height
+        image.width = 1920;  // Video width
+        image.height = 1080; // Video height
         const imageContext = image.getContext( '2d' );
         imageContext.fillStyle = '#000000';
         imageContext.fillRect( 0, 0, image.width - 1, image.height - 1 );
@@ -38,7 +38,7 @@ if ( WEBGL.isWebGLAvailable() ) {
         
         const wall = new THREE.Mesh( new THREE.PlaneGeometry( image.width, image.height, 4, 4 ), material );
 
-        const url = "http://localhost:60080/counter.mpd";
+        const url = "http://localhost:60080/video2/sintel_video.mpd";
         const player = dashjs.MediaPlayer().create();
         player.initialize(document.querySelector("#player"), url, true);
 

@@ -1,6 +1,8 @@
 import adapter from 'webrtc-adapter';
 
 
+
+
 const video = document.querySelector( 'video' );
 const constraints = {
     audio: false,
@@ -38,5 +40,45 @@ navigator.mediaDevices.getUserMedia( constraints )
     }
     console.error( ' Error in getUserMedia: ' + error.name, error );
 });
+
+let streaming = false;
+const width = 320;
+let height = 0;  // Computed based on the width
+
+video.addEventListener( 'canplay', ( event ) => {
+
+    if ( !streaming ) {  // To prevent re-entry
+
+        height = video.videoHeight / ( video.videoWidth / width );
+        video.width = width;
+        video.height = height;
+        canvas.width = width;
+        canvas.height = height;
+        streaming = true;
+    }
+}, false );
+
+
+const canvas = document.querySelector( 'canvas' );          // Select by element type
+const captureButton = document.getElementById( 'capture' ); // Select by id
+
+captureButton.addEventListener( 'click', ( event ) => {
+
+    takepicture( );
+}, false );
+
+
+function takepicture( ) {
+
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext( '2d' ).drawImage( video, 0, 0, width, height );
+
+    // Start downloading (thanks to the 'download' attribute of the link)
+    const dataURL = canvas.toDataURL( 'image/png' );
+    captureButton.href = dataURL;
+}
+
+
 
 
